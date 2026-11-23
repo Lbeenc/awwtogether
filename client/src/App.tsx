@@ -3,7 +3,7 @@ import { getContent } from './api'
 import { Contact, Footer } from './components/Contact'
 import { Hero, Marquee } from './components/Hero'
 import { Nav } from './components/Nav'
-import { About, PhotoPortfolio, Services, Testimonials, VideoPortfolio, WhatIsUgc, WhyUgc } from './components/Sections'
+import { About, Offerings, PhotoPortfolio, Services, Testimonials, VideoPortfolio } from './components/Sections'
 import type { SiteContent } from './types'
 
 export default function App() {
@@ -46,8 +46,7 @@ export default function App() {
         <Hero content={content} />
         <Marquee />
         <About content={content} />
-        <WhatIsUgc content={content} />
-        <WhyUgc content={content} />
+        <Offerings content={content} />
         <PhotoPortfolio content={content} />
         <VideoPortfolio content={content} />
         <Testimonials content={content} />

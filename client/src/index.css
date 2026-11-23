@@ -97,6 +97,7 @@ em { font-style: italic; color: var(--rose); }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
 .hero__art { flex: 1 1 440px; min-width: 0; position: relative; height: 520px; }
 .arch { position: absolute; top: 0; width: 52%; height: 440px; border-radius: 999px 999px 24px 24px; border: 8px solid var(--paper); box-shadow: 0 0 0 1.5px var(--ink); overflow: hidden; }
+.arch .media { object-position: center 35%; } /* keep faces in frame inside the tall arches */
 .arch--left { left: 4%; top: 40px; background: var(--paper); }
 .arch--right { right: 4%; background: var(--cream); }
 .badge {
@@ -148,27 +149,20 @@ em { font-style: italic; color: var(--rose); }
   flex: 1 1 480px; min-width: 0; padding: 88px clamp(24px, 5vw, 56px); display: flex; flex-direction: column;
   justify-content: center; gap: 28px; border-block: 1.5px solid var(--ink);
 }
-.creators { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 520px; }
-.creator { background: var(--blush); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 6px; }
-.creator h3 { font-size: 26px; }
-.creator p { font-size: 14px; line-height: 1.5; }
+.about__headline { font-family: var(--serif); font-style: italic; font-size: 28px; line-height: 1.2; color: var(--rose); margin-top: -8px; }
+.creators { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; max-width: 620px; }
+.creator { background: var(--blush); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 6px; }
+.creator h3 { font-size: 28px; }
+.creator__role { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--rose-dark); }
+.creator__bio { font-size: 15px; line-height: 1.6; margin-top: 4px; }
 
-/* What is UGC */
-.split { display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
-.split > :first-child { flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
-.split__pair { flex: 1 1 360px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.split__pair > div { aspect-ratio: 3 / 4; border-radius: var(--radius); overflow: hidden; }
-.split__pair > div:first-child { background: var(--paper); }
-.split__pair > div:last-child { background: var(--cream); margin-top: 48px; }
-.sparkles { display: flex; gap: 18px; color: var(--rose); }
-
-/* Stats */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); border: 1.5px solid var(--ink); margin-top: 48px; }
-.stat { padding: 44px 36px; display: flex; flex-direction: column; gap: 14px; }
-.stat:nth-child(1) { background: var(--ink); color: var(--paper); }
-.stat:nth-child(2) { background: var(--blush); }
-.stat:nth-child(3) { background: var(--cream); }
-.stat__value { font-family: var(--serif); font-size: 72px; line-height: 1; }
+/* What we can offer */
+.offer { display: flex; flex-wrap: wrap; align-items: center; gap: 40px 72px; }
+.offer__title { flex: 1 1 280px; font-size: clamp(52px, 7vw, 88px); line-height: .95; }
+.offer__list { flex: 2 1 480px; min-width: 0; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+.offer__list li { display: flex; gap: 16px; align-items: flex-start; font-size: 18px; line-height: 1.55; }
+.offer__list li svg { flex: none; width: 18px; height: 18px; margin-top: 5px; color: var(--rose); }
+.offer__list strong { font-weight: 600; }
 
 /* Portfolio */
 .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
@@ -196,7 +190,9 @@ em { font-style: italic; color: var(--rose); }
 .quote__mark { font-family: var(--serif); font-size: 56px; line-height: .5; color: var(--rose); }
 .quote blockquote { margin: 0; font-size: 17px; line-height: 1.65; }
 .quote figcaption { display: flex; align-items: center; gap: 14px; }
-.quote__avatar { width: 48px; height: 48px; border-radius: 999px; background: var(--blush); flex: none; }
+.quote { max-width: 620px; }
+.quote__avatar { width: 48px; height: 48px; border-radius: 999px; background: var(--blush); flex: none; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 22px; color: var(--rose-dark); }
+.quote blockquote { font-family: var(--serif); font-size: 26px; line-height: 1.35; }
 .quote figcaption span { display: flex; flex-direction: column; font-size: 14px; }
 .quote figcaption strong { font-weight: 600; font-size: 16px; }
 

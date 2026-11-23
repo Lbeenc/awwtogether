@@ -7,21 +7,32 @@
   "tagline": "A UGC creator duo making scroll-stopping, heart-on-our-sleeve content for brands that want to feel like a friend's recommendation.",
   "introVideo": { "url": "/videos/intro.mp4", "posterUrl": "/videos/intro.jpg", "title": "Introducing Heather & Tina" },
   "creators": [
-    { "name": "Heather", "specialty": "[Specialty, e.g. scripting & voiceover]", "photoUrl": null },
-    { "name": "Tina", "specialty": "[Specialty, e.g. filming & editing]", "photoUrl": null }
+    {
+      "name": "Tina",
+      "specialty": "The Creative One ✨",
+      "bio": "Always dreaming up new ideas and finding fun ways to bring them to life. I love creating relatable content, thinking outside the box, and turning everyday moments into something worth sharing.",
+      "photoUrl": "/images/portrait-striped.jpg"
+    },
+    {
+      "name": "Heather",
+      "specialty": "The Planner Behind the Fun 💕",
+      "bio": "The one who helps turn those big ideas into reality! I love organizing the details, making things happen, and making sure there's always a little fun along the way.",
+      "photoUrl": "/images/portrait-pink.jpg"
+    }
   ],
-  "about": "We're Heather and Tina, a UGC duo who believe the best content looks like real life — because it is. Between the two of us we bring double the ideas, double the angles and a natural on-camera chemistry that makes products feel loved, not sold.",
-  "whatIsUgc": "User-generated content (UGC) is brand content — videos, photos, reviews and more — made by real people rather than by the brand itself. It feels authentic because it is, and that authenticity is exactly what today's audiences trust and respond to.",
-  "stats": [
-    { "value": "79%", "label": "of consumers say UGC impacts their purchasing decisions [add source]" },
-    { "value": "2.4x", "label": "more likely to view user-generated content as authentic than brand-created content [add source]" },
-    { "value": "73%", "label": "more positive comments on social for UGC than for traditional ads [add source]" }
+  "aboutHeadline": "Together, we're AwwTogether!",
+  "about": "Two best friends, two different personalities, and a shared love for creating content that connects, inspires, and makes people smile.",
+  "offerings": [
+    { "title": "Product reviews and first impressions", "description": "Honest takes on how a product fits into real life" },
+    { "title": "Testimonials", "description": "Talking-to-camera videos that build trust" },
+    { "title": "Tutorials and demos", "description": "Simple, clear walkthroughs of how a product works" },
+    { "title": "Unboxings", "description": "Genuine first reactions" },
+    { "title": "Day-in-the-life and routine content", "description": "Your product woven into a working mom or military family routine" }
   ],
   "photos": [
-    { "title": "[Project]", "brand": "[Brand]", "description": "[One line on the brief and the result]", "mediaUrl": null, "link": null },
-    { "title": "[Project]", "brand": "[Brand]", "description": "[One line on the brief and the result]", "mediaUrl": null, "link": null },
-    { "title": "[Project]", "brand": "[Brand]", "description": "[One line on the brief and the result]", "mediaUrl": null, "link": null },
-    { "title": "[Project]", "brand": "[Brand]", "description": "[One line on the brief and the result]", "mediaUrl": null, "link": null }
+    { "title": "Unstopables Fresh", "brand": "Downy", "description": "[One line on the brief and the result]", "mediaUrl": "/images/downy-unstopables.jpg", "link": null },
+    { "title": "Dental Probiotic", "brand": "SuperTeeth", "description": "[One line on the brief and the result]", "mediaUrl": "/images/superteeth.jpg", "link": null },
+    { "title": "The cheese pull", "brand": "Dave's Hot Chicken", "description": "[One line on the brief and the result]", "mediaUrl": "/images/daves-hot-chicken.jpg", "link": null }
   ],
   "videos": [
     { "title": "Cantina", "brand": "Cantina", "description": "[Hook / format]", "mediaUrl": "/videos/cantina.mp4", "posterUrl": "/videos/cantina.jpg", "link": null },
@@ -30,8 +41,7 @@
     { "title": "SuperTeeth", "brand": "SuperTeeth", "description": "[Hook / format]", "mediaUrl": "/videos/superteeth.mp4", "posterUrl": "/videos/superteeth.jpg", "link": null }
   ],
   "testimonials": [
-    { "quote": "[Client testimonial — what it was like working with you and the results they saw.]", "name": "[Client name]", "role": "[Role, Brand]" },
-    { "quote": "[Client testimonial — what it was like working with you and the results they saw.]", "name": "[Client name]", "role": "[Role, Brand]" }
+    { "quote": "Great work to you both!!! Very nice use of b-roll footage", "name": "NewForm One", "role": null }
   ],
   "services": [
     {

@@ -28,12 +28,14 @@ export function About({ content }: Props) {
         <h2 id="about-title" className="heading">
           About <em>us</em>
         </h2>
+        {content.aboutHeadline && <p className="about__headline">{content.aboutHeadline}</p>}
         <p className="lead">{content.about}</p>
         <div className="creators">
           {content.creators.map((c, i) => (
             <div className="creator" key={i}>
               <h3>{c.name}</h3>
-              <p>{c.specialty}</p>
+              <p className="creator__role">{c.specialty}</p>
+              {c.bio && <p className="creator__bio">{c.bio}</p>}
             </div>
           ))}
         </div>
@@ -42,49 +44,25 @@ export function About({ content }: Props) {
   )
 }
 
-export function WhatIsUgc({ content }: Props) {
+export function Offerings({ content }: Props) {
   return (
-    <section className="section section--blush" aria-labelledby="ugc-title">
-      <div className="container split">
-        <div>
-          <h2 id="ugc-title" className="heading">
-            What is <em>UGC?</em>
-          </h2>
-          <p className="lead">{content.whatIsUgc}</p>
-          <div className="sparkles">
-            <Sparkle />
-            <Sparkle />
-            <Sparkle />
-          </div>
-        </div>
-        <div className="split__pair">
-          <div>
-            <Media src={content.photos[0]?.mediaUrl ?? null} alt="" label="Product shot" />
-          </div>
-          <div>
-            <Media src={content.photos[1]?.mediaUrl ?? null} alt="" label="Lifestyle shot" />
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-export function WhyUgc({ content }: Props) {
-  return (
-    <section className="section section--paper" aria-labelledby="why-title">
-      <div className="container">
-        <h2 id="why-title" className="heading center">
-          Why <em>UGC?</em>
+    <section id="offer" className="section section--blush" aria-labelledby="offer-title">
+      <div className="container offer">
+        <h2 id="offer-title" className="offer__title">
+          What we
+          <br />
+          can <em>offer</em>
         </h2>
-        <div className="stats">
-          {content.stats.map((s, i) => (
-            <div className="stat" key={i}>
-              <p className="stat__value">{s.value}</p>
-              <p>{s.label}</p>
-            </div>
+        <ul className="offer__list">
+          {content.offerings.map((o, i) => (
+            <li key={i}>
+              <Sparkle />
+              <p>
+                <strong>{o.title}:</strong> {o.description}
+              </p>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )
@@ -92,7 +70,7 @@ export function WhyUgc({ content }: Props) {
 
 export function PhotoPortfolio({ content }: Props) {
   return (
-    <section id="portfolio" className="section section--blush" aria-labelledby="photos-title">
+    <section id="portfolio" className="section section--paper" aria-labelledby="photos-title">
       <div className="container">
         <div className="section-head">
           <h2 id="photos-title" className="heading">
@@ -125,7 +103,7 @@ export function PhotoPortfolio({ content }: Props) {
 
 export function VideoPortfolio({ content }: Props) {
   return (
-    <section className="section section--paper" aria-labelledby="videos-title">
+    <section className="section section--blush" aria-labelledby="videos-title">
       <div className="container">
         <div className="section-head">
           <h2 id="videos-title" className="heading">
@@ -171,7 +149,9 @@ export function Testimonials({ content }: Props) {
               </p>
               <blockquote>{t.quote}</blockquote>
               <figcaption>
-                <span className="quote__avatar" aria-hidden="true" />
+                <span className="quote__avatar" aria-hidden="true">
+                  {t.name.charAt(0)}
+                </span>
                 <span>
                   <strong>{t.name}</strong>
                   {t.role}

@@ -27,7 +27,7 @@ cd client && npm install && npm run dev
 
 ## Editing the site's words, prices and photos
 
-All copy lives in **`server/AwwTogether.Api/Data/content.json`**. That covers names, the about text, stats, portfolio items, testimonials, prices and contact handles. The server reloads the file as soon as you save it, so you don't need to rebuild.
+All copy lives in **`server/AwwTogether.Api/Data/content.json`**. That covers names and bios, the about text, offerings, portfolio items, testimonials, prices and contact handles. The server reloads the file as soon as you save it, so you don't need to rebuild.
 
 - Anything in `[brackets]` is a placeholder to replace.
 - **Photos and videos:** put files in `client/public/images/`. Then set `photoUrl` or `mediaUrl` to `"/images/your-file.jpg"`, or use `.mp4` for a video. Until you do, the site shows a labelled placeholder frame.

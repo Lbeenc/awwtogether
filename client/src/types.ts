@@ -5,9 +5,9 @@ export interface SiteContent {
   tagline: string
   introVideo: { url: string; posterUrl: string | null; title: string } | null
   creators: Creator[]
+  aboutHeadline: string | null
   about: string
-  whatIsUgc: string
-  stats: Stat[]
+  offerings: Offering[]
   photos: PortfolioItem[]
   videos: PortfolioItem[]
   testimonials: Testimonial[]
@@ -19,11 +19,12 @@ export interface Creator {
   name: string
   specialty: string
   photoUrl: string | null
+  bio: string | null
 }
 
-export interface Stat {
-  value: string
-  label: string
+export interface Offering {
+  title: string
+  description: string
 }
 
 export interface PortfolioItem {
@@ -38,7 +39,7 @@ export interface PortfolioItem {
 export interface Testimonial {
   quote: string
   name: string
-  role: string
+  role: string | null
 }
 
 export interface Service {
