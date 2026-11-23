@@ -96,7 +96,19 @@ app.Use(async (ctx, next) =>
 });
 
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        var path = ctx.Context.Request.Path.Value ?? "";
+        // Vite's /assets files have content hashes in their names, so they can be cached for good.
+        // Videos and images change rarely; cache them for a week. index.html is never cached so deploys show up at once.
+        ctx.Context.Response.Headers.CacheControl =
+            path.StartsWith("/assets/") ? "public, max-age=31536000, immutable"
+            : path.StartsWith("/videos/") || path.StartsWith("/images/") ? "public, max-age=604800"
+            : "no-cache";
+    },
+});
 app.UseRateLimiter();
 
 var api = app.MapGroup("/api");

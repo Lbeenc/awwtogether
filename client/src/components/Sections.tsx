@@ -1,6 +1,6 @@
 import type { SiteContent } from '../types'
 import { Sparkle } from './Icons'
-import { Media } from './Media'
+import { Media, VideoPlayer } from './Media'
 
 type Props = { content: SiteContent }
 
@@ -8,9 +8,16 @@ export function About({ content }: Props) {
   return (
     <section id="about" className="about" aria-labelledby="about-title">
       <div className="about__art">
-        <div className="about__photo">
-          <Media src={null} alt="" label="Photo of you two together" />
-        </div>
+        <figure className="about__intro">
+          <div className="about__photo">
+            {content.introVideo ? (
+              <VideoPlayer src={content.introVideo.url} poster={content.introVideo.posterUrl} title={content.introVideo.title} />
+            ) : (
+              <Media src={null} alt="" label="Photo of you two together" />
+            )}
+          </div>
+          {content.introVideo && <figcaption className="about__caption">{content.introVideo.title}</figcaption>}
+        </figure>
         <p className="about__seal" aria-hidden="true">
           AWW
           <br />✦<br />
@@ -130,7 +137,7 @@ export function VideoPortfolio({ content }: Props) {
           {content.videos.map((v, i) => (
             <article className="phone-card" key={i}>
               <div className="phone">
-                <Media src={v.mediaUrl} alt={`${v.title} for ${v.brand}`} label={v.title} kind="video" />
+                <Media src={v.mediaUrl} poster={v.posterUrl} alt={`${v.brand} UGC video`} label={v.title} kind="video" />
               </div>
               <h3>{v.brand}</h3>
               <p>{v.description}</p>

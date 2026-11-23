@@ -3,6 +3,7 @@
 export interface SiteContent {
   brandName: string
   tagline: string
+  introVideo: { url: string; posterUrl: string | null; title: string } | null
   creators: Creator[]
   about: string
   whatIsUgc: string
@@ -31,6 +32,7 @@ export interface PortfolioItem {
   description: string
   mediaUrl: string | null
   link: string | null
+  posterUrl?: string | null
 }
 
 export interface Testimonial {

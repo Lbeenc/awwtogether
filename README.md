@@ -33,6 +33,22 @@ All copy lives in **`server/AwwTogether.Api/Data/content.json`**. That covers na
 - **Photos and videos:** put files in `client/public/images/`. Then set `photoUrl` or `mediaUrl` to `"/images/your-file.jpg"`, or use `.mp4` for a video. Until you do, the site shows a labelled placeholder frame.
 - Set `link` on a portfolio item to show a "View project →" link.
 
+### Adding or replacing videos
+
+Videos live in `client/public/videos/`, each as an `.mp4` with a matching `.jpg` poster frame. The intro video is set in `introVideo`, and the phone examples in the `videos` list (`mediaUrl` plus `posterUrl`).
+
+**iPhone videos are usually HEVC (H.265).** Safari plays HEVC, but Chrome, Edge and Firefox on most Windows and Android devices don't, so always convert first. These commands use [FFmpeg](https://www.gyan.dev/ffmpeg/builds/). The first converts the video to 720p H.264 (about 3–8 MB for 30 seconds), and the second grabs a poster frame:
+
+```bash
+ffmpeg -i "My Video.mov" -vf "scale=720:-2,fps=30" -c:v libx264 -preset slow -crf 26 -profile:v high -pix_fmt yuv420p -c:a aac -b:a 112k -movflags +faststart client/public/videos/my-video.mp4
+```
+
+```bash
+ffmpeg -ss 1.5 -i client/public/videos/my-video.mp4 -frames:v 1 -vf scale=540:-2 -q:v 4 client/public/videos/my-video.jpg
+```
+
+Keep each file well under 100 MB, which is GitHub's per-file limit. Videos don't download until a visitor presses play.
+
 ## Reading contact-form inquiries
 
 Where inquiries are saved depends on the `Storage:Provider` setting:

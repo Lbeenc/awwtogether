@@ -4,6 +4,7 @@ namespace AwwTogether.Api.Models;
 public sealed record SiteContent(
     string BrandName,
     string Tagline,
+    IntroVideo? IntroVideo,
     IReadOnlyList<Creator> Creators,
     string About,
     string WhatIsUgc,
@@ -18,7 +19,9 @@ public sealed record Creator(string Name, string Specialty, string? PhotoUrl);
 
 public sealed record Stat(string Value, string Label);
 
-public sealed record PortfolioItem(string Title, string Brand, string Description, string? MediaUrl, string? Link);
+public sealed record IntroVideo(string Url, string? PosterUrl, string Title);
+
+public sealed record PortfolioItem(string Title, string Brand, string Description, string? MediaUrl, string? Link, string? PosterUrl = null);
 
 public sealed record Testimonial(string Quote, string Name, string Role);
 

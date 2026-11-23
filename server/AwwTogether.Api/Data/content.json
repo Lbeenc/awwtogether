@@ -1,14 +1,16 @@
 // Site copy for AwwTogether. Edit freely — the server reloads this file automatically.
 // Anything in [brackets] is a placeholder to replace.
 // mediaUrl / photoUrl: put images in client/public/images and reference them as "/images/your-file.jpg".
+// Videos live in client/public/videos as web-ready .mp4 (H.264) with a .jpg poster frame — see README.
 {
   "brandName": "AwwTogether",
   "tagline": "A UGC creator duo making scroll-stopping, heart-on-our-sleeve content for brands that want to feel like a friend's recommendation.",
+  "introVideo": { "url": "/videos/intro.mp4", "posterUrl": "/videos/intro.jpg", "title": "Introducing Heather & Tina" },
   "creators": [
-    { "name": "[Creator 1]", "specialty": "[Specialty, e.g. scripting & voiceover]", "photoUrl": null },
-    { "name": "[Creator 2]", "specialty": "[Specialty, e.g. filming & editing]", "photoUrl": null }
+    { "name": "Heather", "specialty": "[Specialty, e.g. scripting & voiceover]", "photoUrl": null },
+    { "name": "Tina", "specialty": "[Specialty, e.g. filming & editing]", "photoUrl": null }
   ],
-  "about": "We're [Creator 1] and [Creator 2], a UGC duo who believe the best content looks like real life — because it is. Between the two of us we bring double the ideas, double the angles and a natural on-camera chemistry that makes products feel loved, not sold.",
+  "about": "We're Heather and Tina, a UGC duo who believe the best content looks like real life — because it is. Between the two of us we bring double the ideas, double the angles and a natural on-camera chemistry that makes products feel loved, not sold.",
   "whatIsUgc": "User-generated content (UGC) is brand content — videos, photos, reviews and more — made by real people rather than by the brand itself. It feels authentic because it is, and that authenticity is exactly what today's audiences trust and respond to.",
   "stats": [
     { "value": "79%", "label": "of consumers say UGC impacts their purchasing decisions [add source]" },
@@ -22,10 +24,10 @@
     { "title": "[Project]", "brand": "[Brand]", "description": "[One line on the brief and the result]", "mediaUrl": null, "link": null }
   ],
   "videos": [
-    { "title": "Unboxing", "brand": "[Brand]", "description": "[Hook / format]", "mediaUrl": null, "link": null },
-    { "title": "Duo skit", "brand": "[Brand]", "description": "[Hook / format]", "mediaUrl": null, "link": null },
-    { "title": "GRWM", "brand": "[Brand]", "description": "[Hook / format]", "mediaUrl": null, "link": null },
-    { "title": "Testimonial", "brand": "[Brand]", "description": "[Hook / format]", "mediaUrl": null, "link": null }
+    { "title": "Cantina", "brand": "Cantina", "description": "[Hook / format]", "mediaUrl": "/videos/cantina.mp4", "posterUrl": "/videos/cantina.jpg", "link": null },
+    { "title": "Cookie Night", "brand": "Cookie Night", "description": "[Hook / format]", "mediaUrl": "/videos/cookie-night.mp4", "posterUrl": "/videos/cookie-night.jpg", "link": null },
+    { "title": "Dave's Hot Chicken", "brand": "Dave's Hot Chicken", "description": "[Hook / format]", "mediaUrl": "/videos/daves-hot-chicken.mp4", "posterUrl": "/videos/daves-hot-chicken.jpg", "link": null },
+    { "title": "SuperTeeth", "brand": "SuperTeeth", "description": "[Hook / format]", "mediaUrl": "/videos/superteeth.mp4", "posterUrl": "/videos/superteeth.jpg", "link": null }
   ],
   "testimonials": [
     { "quote": "[Client testimonial — what it was like working with you and the results they saw.]", "name": "[Client name]", "role": "[Role, Brand]" },
