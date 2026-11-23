@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/server/">
+    <Project Path="server/AwwTogether.Api/AwwTogether.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AwwTogether.Api.Tests/AwwTogether.Api.Tests.csproj" />
+  </Folder>
+</Solution>

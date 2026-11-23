@@ -1,0 +1,61 @@
+// Site copy for AwwTogether. Edit freely — the server reloads this file automatically.
+// Anything in [brackets] is a placeholder to replace.
+// mediaUrl / photoUrl: put images in client/public/images and reference them as "/images/your-file.jpg".
+{
+  "brandName": "AwwTogether",
+  "tagline": "A UGC creator duo making scroll-stopping, heart-on-our-sleeve content for brands that want to feel like a friend's recommendation.",
+  "creators": [
+    { "name": "[Creator 1]", "specialty": "[Specialty, e.g. scripting & voiceover]", "photoUrl": null },
+    { "name": "[Creator 2]", "specialty": "[Specialty, e.g. filming & editing]", "photoUrl": null }
+  ],
+  "about": "We're [Creator 1] and [Creator 2], a UGC duo who believe the best content looks like real life — because it is. Between the two of us we bring double the ideas, double the angles and a natural on-camera chemistry that makes products feel loved, not sold.",
+  "whatIsUgc": "User-generated content (UGC) is brand content — videos, photos, reviews and more — made by real people rather than by the brand itself. It feels authentic because it is, and that authenticity is exactly what today's audiences trust and respond to.",
+  "stats": [
+    { "value": "79%", "label": "of consumers say UGC impacts their purchasing decisions [add source]" },
+    { "value": "2.4x", "label": "more likely to view user-generated content as authentic than brand-created content [add source]" },
+    { "value": "73%", "label": "more positive comments on social for UGC than for traditional ads [add source]" }
+  ],
+  "photos": [
+    { "title": "[Project]", "brand": "[Brand]", "description": "[One line on the brief and the result]", "mediaUrl": null, "link": null },
+    { "title": "[Project]", "brand": "[Brand]", "description": "[One line on the brief and the result]", "mediaUrl": null, "link": null },
+    { "title": "[Project]", "brand": "[Brand]", "description": "[One line on the brief and the result]", "mediaUrl": null, "link": null },
+    { "title": "[Project]", "brand": "[Brand]", "description": "[One line on the brief and the result]", "mediaUrl": null, "link": null }
+  ],
+  "videos": [
+    { "title": "Unboxing", "brand": "[Brand]", "description": "[Hook / format]", "mediaUrl": null, "link": null },
+    { "title": "Duo skit", "brand": "[Brand]", "description": "[Hook / format]", "mediaUrl": null, "link": null },
+    { "title": "GRWM", "brand": "[Brand]", "description": "[Hook / format]", "mediaUrl": null, "link": null },
+    { "title": "Testimonial", "brand": "[Brand]", "description": "[Hook / format]", "mediaUrl": null, "link": null }
+  ],
+  "testimonials": [
+    { "quote": "[Client testimonial — what it was like working with you and the results they saw.]", "name": "[Client name]", "role": "[Role, Brand]" },
+    { "quote": "[Client testimonial — what it was like working with you and the results they saw.]", "name": "[Client name]", "role": "[Role, Brand]" }
+  ],
+  "services": [
+    {
+      "title": "Product photography",
+      "description": "Styled, natural-light photos of your product in real, lived-in settings — ready for your site, ads and socials.",
+      "tiers": [
+        { "label": "5 photos", "price": "[$ PRICE]" },
+        { "label": "10 photos", "price": "[$ PRICE]" },
+        { "label": "15 photos", "price": "[$ PRICE]" }
+      ]
+    },
+    {
+      "title": "UGC videos · TikTok / Reels",
+      "description": "Short-form videos with strong hooks — solo or as a duo — scripted, filmed and edited for paid or organic use.",
+      "tiers": [
+        { "label": "1 video", "price": "[$ PRICE]" },
+        { "label": "3 videos", "price": "[$ PRICE]" },
+        { "label": "5 videos", "price": "[$ PRICE]" }
+      ]
+    }
+  ],
+  "contact": {
+    "email": "[hello@awwtogether.com]",
+    "website": "[awwtogether.com]",
+    "instagram": "[@awwtogether]",
+    "tikTok": "[@awwtogether]",
+    "responseTime": "48 hours"
+  }
+}
