@@ -17,12 +17,12 @@ export function About({ content }: Props) {
             )}
           </div>
           {content.introVideo && <figcaption className="about__caption">{content.introVideo.title}</figcaption>}
+          <p className="about__seal" aria-hidden="true">
+            AWW
+            <br />✦<br />
+            TOGETHER
+          </p>
         </figure>
-        <p className="about__seal" aria-hidden="true">
-          AWW
-          <br />✦<br />
-          TOGETHER
-        </p>
       </div>
       <div className="about__copy">
         <h2 id="about-title" className="heading">
