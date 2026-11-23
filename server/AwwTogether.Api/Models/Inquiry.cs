@@ -24,7 +24,7 @@ public sealed record InquiryRequest(
     // Honeypot: hidden on the form, so real visitors leave it empty. Bots fill it.
     string? Website);
 
-public sealed record InquiryResponse(int Id, string Name, string Email, string? Brand, string? Budget, string Message, DateTimeOffset CreatedAt)
+public sealed record InquiryResponse(string Id, string Name, string Email, string? Brand, string? Budget, string Message, DateTimeOffset CreatedAt)
 {
-    public static InquiryResponse From(Inquiry i) => new(i.Id, i.Name, i.Email, i.Brand, i.Budget, i.Message, i.CreatedAt);
+    public static InquiryResponse From(string id, Inquiry i) => new(id, i.Name, i.Email, i.Brand, i.Budget, i.Message, i.CreatedAt);
 }

@@ -5,7 +5,8 @@ Website for **AwwTogether**, a UGC creator duo. It's a one-page portfolio with a
 | Part | Tech |
 | --- | --- |
 | `client/` | React 19 + TypeScript, built with Vite |
-| `server/AwwTogether.Api/` | ASP.NET Core 10 minimal API, EF Core + SQLite |
+| `server/AwwTogether.Api/` | ASP.NET Core 10 minimal API. Inquiries go to SQLite locally and Firestore in production |
+| Hosting | Google Cloud Run, with the domain kept at GoDaddy. See [docs/DEPLOY-GOOGLE-CLOUD.md](docs/DEPLOY-GOOGLE-CLOUD.md) |
 | `tests/AwwTogether.Api.Tests/` | xUnit integration tests for the API |
 
 ## Run it locally
@@ -34,7 +35,12 @@ All copy lives in **`server/AwwTogether.Api/Data/content.json`**. That covers na
 
 ## Reading contact-form inquiries
 
-Inquiries are saved to a SQLite database at `server/AwwTogether.Api/App_Data/awwtogether.db`. To list the latest 200, call the private endpoint with your admin key:
+Where inquiries are saved depends on the `Storage:Provider` setting:
+
+- **Locally (the default):** a SQLite file at `server/AwwTogether.Api/App_Data/awwtogether.db`. You don't need any cloud account.
+- **On Cloud Run:** **Firestore**, in the `inquiries` collection. The Dockerfile sets `Storage__Provider=Firestore`. You can browse submissions in the Google Cloud console under **Firestore → Data**.
+
+Either way, to list the latest 200, call the private endpoint with your admin key:
 
 ```bash
 curl -H "X-Admin-Key: dev-only-admin-key" http://localhost:5158/api/inquiries
@@ -70,17 +76,15 @@ cd client && npm run build
 dotnet publish server/AwwTogether.Api -c Release -o publish
 ```
 
-Alternatively, use the included **Dockerfile**, which builds everything in one step:
+**Production hosting is Google Cloud Run.** Follow **[docs/DEPLOY-GOOGLE-CLOUD.md](docs/DEPLOY-GOOGLE-CLOUD.md)** step by step. It covers the project, Firestore, the admin-key secret, deploying automatically from GitHub, and pointing your GoDaddy domain at the site.
+
+The **Dockerfile** builds the whole site into a single image and is set up for Cloud Run: it listens on `$PORT` and stores inquiries in Firestore. To run that image somewhere else with SQLite instead:
 
 ```bash
-docker build -t awwtogether .
+docker run -p 8080:8080 -v aww-data:/data -e Storage__Provider=Sqlite -e "ConnectionStrings__Default=Data Source=/data/awwtogether.db" -e Admin__ApiKey=change-me awwtogether
 ```
 
-```bash
-docker run -p 8080:8080 -v aww-data:/data -e Admin__ApiKey=change-me awwtogether
-```
-
-Mount a volume at `/data` so saved inquiries survive redeploys. The app reads `X-Forwarded-*` headers, so it works behind hosts like Azure App Service, Render, Fly.io or nginx. Health check: `GET /health`.
+The app reads `X-Forwarded-*` headers, so it works behind a proxy or load balancer. Health check: `GET /health`.
 
 ## API
 
@@ -96,5 +100,5 @@ Mount a volume at `/data` so saved inquiries survive redeploys. The app reads `X
 
 - Replace the placeholders in `content.json` and add real photos and videos.
 - Add sources for the "Why UGC?" stats, or swap them out.
-- Choose a host and domain, and set `Admin__ApiKey` there.
+- Deploy to Cloud Run and connect the GoDaddy domain ([guide](docs/DEPLOY-GOOGLE-CLOUD.md)).
 - Optional: email notifications for new inquiries (an SMTP or Resend/SendGrid key would be needed).

@@ -4,10 +4,15 @@ using System.Threading.RateLimiting;
 using AwwTogether.Api.Data;
 using AwwTogether.Api.Models;
 using AwwTogether.Api.Services;
+using Google.Cloud.Firestore;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Cloud Run tells the container which port to listen on via $PORT.
+if (Environment.GetEnvironmentVariable("PORT") is { Length: > 0 } port)
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 builder.Services.AddOpenApi();
 builder.Services.AddProblemDetails();
@@ -15,8 +20,23 @@ builder.Services.AddValidation();
 builder.Services.AddHealthChecks();
 builder.Services.AddSingleton<ContentStore>();
 
-var connectionString = builder.Configuration.GetConnectionString("Default") ?? "Data Source=App_Data/awwtogether.db";
-builder.Services.AddDbContext<AppDbContext>(o => o.UseSqlite(connectionString));
+// Inquiry storage: SQLite locally (no cloud credentials needed), Firestore on Google Cloud Run
+// (Cloud Run's disk is wiped on every restart, so a local file would lose inquiries).
+var useFirestore = string.Equals(builder.Configuration["Storage:Provider"], "Firestore", StringComparison.OrdinalIgnoreCase);
+if (useFirestore)
+{
+    // On Cloud Run the project and credentials come from the service account automatically.
+    // Firestore:ProjectId only needs setting when running elsewhere.
+    var projectId = builder.Configuration["Firestore:ProjectId"];
+    builder.Services.AddSingleton(_ => string.IsNullOrEmpty(projectId) ? FirestoreDb.Create() : FirestoreDb.Create(projectId));
+    builder.Services.AddSingleton<IInquiryStore, FirestoreInquiryStore>();
+}
+else
+{
+    var connectionString = builder.Configuration.GetConnectionString("Default") ?? "Data Source=App_Data/awwtogether.db";
+    builder.Services.AddDbContext<AppDbContext>(o => o.UseSqlite(connectionString));
+    builder.Services.AddScoped<IInquiryStore, SqliteInquiryStore>();
+}
 
 // Stop the contact form from being spammed: 5 submissions per IP per 10 minutes.
 builder.Services.AddRateLimiter(o =>
@@ -39,8 +59,9 @@ builder.Services.Configure<ForwardedHeadersOptions>(o =>
 var app = builder.Build();
 
 // Create the SQLite file and tables on first run.
-using (var scope = app.Services.CreateScope())
+if (!useFirestore)
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var dataSource = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder(db.Database.GetConnectionString()).DataSource;
     if (Path.GetDirectoryName(dataSource) is { Length: > 0 } dir) Directory.CreateDirectory(dir);
@@ -57,8 +78,8 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
+    // HTTPS is terminated (and http→https redirected) by Cloud Run / the host in front of us.
     app.UseHsts();
-    app.UseHttpsRedirection();
 }
 
 app.Use(async (ctx, next) =>
@@ -83,7 +104,7 @@ var api = app.MapGroup("/api");
 api.MapGet("/content", (ContentStore store) => store.Current)
     .WithName("GetContent");
 
-api.MapPost("/inquiries", async (InquiryRequest req, AppDbContext db, ILogger<Program> log) =>
+api.MapPost("/inquiries", async (InquiryRequest req, IInquiryStore store, ILogger<Program> log) =>
 {
     // Honeypot filled in → almost certainly a bot. Pretend it worked so it moves on.
     if (!string.IsNullOrWhiteSpace(req.Website))
@@ -98,9 +119,8 @@ api.MapPost("/inquiries", async (InquiryRequest req, AppDbContext db, ILogger<Pr
         Message = req.Message.Trim(),
         CreatedAt = DateTimeOffset.UtcNow,
     };
-    db.Inquiries.Add(inquiry);
-    await db.SaveChangesAsync();
-    log.LogInformation("New inquiry {Id} from {Brand}", inquiry.Id, inquiry.Brand ?? "(no brand)");
+    var id = await store.AddAsync(inquiry);
+    log.LogInformation("New inquiry {Id} from {Brand}", id, inquiry.Brand ?? "(no brand)");
     return Results.Accepted();
 })
 .RequireRateLimiting("inquiries")
@@ -108,7 +128,7 @@ api.MapPost("/inquiries", async (InquiryRequest req, AppDbContext db, ILogger<Pr
 
 // Private: lets the duo read submissions. Send the key from Admin:ApiKey in an X-Admin-Key header.
 // Disabled (404) until a key is configured.
-api.MapGet("/inquiries", async (HttpRequest http, AppDbContext db, IConfiguration config) =>
+api.MapGet("/inquiries", async (HttpRequest http, IInquiryStore store, IConfiguration config) =>
 {
     var key = config["Admin:ApiKey"];
     if (string.IsNullOrEmpty(key)) return Results.NotFound();
@@ -116,8 +136,7 @@ api.MapGet("/inquiries", async (HttpRequest http, AppDbContext db, IConfiguratio
     if (!CryptographicOperations.FixedTimeEquals(Encoding.UTF8.GetBytes(given), Encoding.UTF8.GetBytes(key)))
         return Results.Unauthorized();
 
-    var list = await db.Inquiries.OrderByDescending(i => i.CreatedAt).Take(200).ToListAsync();
-    return Results.Ok(list.Select(InquiryResponse.From));
+    return Results.Ok(await store.ListRecentAsync(200));
 })
 .WithName("ListInquiries");
 

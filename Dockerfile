@@ -15,13 +15,16 @@ COPY server/ server/
 COPY --from=client /src/server/AwwTogether.Api/wwwroot server/AwwTogether.Api/wwwroot
 RUN dotnet publish server/AwwTogether.Api/AwwTogether.Api.csproj -c Release -o /app --no-restore
 
-# 3) Run
+# 3) Run (built for Google Cloud Run)
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=server /app ./
-ENV ASPNETCORE_URLS=http://+:8080 \
-    ConnectionStrings__Default="Data Source=/data/awwtogether.db"
-# Mount a volume here so inquiries survive redeploys
-VOLUME /data
+# Cloud Run sets $PORT (default 8080); the app listens on it.
+# Inquiries go to Firestore because Cloud Run's disk is wiped on restart.
+# To run this image somewhere else with SQLite instead, override:
+#   -e Storage__Provider=Sqlite -e ConnectionStrings__Default="Data Source=/data/awwtogether.db" -v aww-data:/data
+ENV PORT=8080 \
+    Storage__Provider=Firestore
 EXPOSE 8080
+USER $APP_UID
 ENTRYPOINT ["dotnet", "AwwTogether.Api.dll"]
