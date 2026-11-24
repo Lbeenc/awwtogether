@@ -1,6 +1,10 @@
 using System.Net;
 using System.Net.Http.Json;
+using AwwTogether.Api.Models;
+using AwwTogether.Api.Services;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AwwTogether.Api.Tests;
 
@@ -72,6 +76,57 @@ public sealed class ApiTests(ApiFactory factory) : IClassFixture<ApiFactory>
     {
         var res = await _client.GetAsync("/api/inquiries");
         Assert.Equal(HttpStatusCode.Unauthorized, res.StatusCode);
+    }
+
+    [Fact]
+    public async Task Valid_inquiry_triggers_email_notification()
+    {
+        var fake = new FakeNotifier();
+        using var client = factory.WithWebHostBuilder(b =>
+            b.ConfigureTestServices(s => s.AddSingleton<IInquiryNotifier>(fake))).CreateClient();
+
+        var res = await client.PostAsJsonAsync("/api/inquiries", ValidInquiry());
+
+        Assert.Equal(HttpStatusCode.Accepted, res.StatusCode);
+        var sent = Assert.Single(fake.Sent);
+        Assert.Equal("jamie@example.com", sent.Email);
+        Assert.Equal("Glow Co", sent.Brand);
+    }
+
+    [Fact]
+    public async Task Inquiry_is_still_accepted_when_email_fails()
+    {
+        using var client = factory.WithWebHostBuilder(b =>
+            b.ConfigureTestServices(s => s.AddSingleton<IInquiryNotifier>(new FakeNotifier { Fail = true }))).CreateClient();
+
+        var res = await client.PostAsJsonAsync("/api/inquiries", ValidInquiry());
+
+        Assert.Equal(HttpStatusCode.Accepted, res.StatusCode);
+    }
+
+    [Fact]
+    public async Task Honeypot_submission_sends_no_email()
+    {
+        var fake = new FakeNotifier();
+        using var client = factory.WithWebHostBuilder(b =>
+            b.ConfigureTestServices(s => s.AddSingleton<IInquiryNotifier>(fake))).CreateClient();
+
+        await client.PostAsJsonAsync("/api/inquiries", ValidInquiry(website: "http://spam.example"));
+
+        Assert.Empty(fake.Sent);
+    }
+
+    private sealed class FakeNotifier : IInquiryNotifier
+    {
+        public bool Fail { get; init; }
+        public List<Inquiry> Sent { get; } = [];
+
+        public Task NotifyAsync(Inquiry inquiry, CancellationToken ct = default)
+        {
+            if (Fail) throw new InvalidOperationException("SMTP down");
+            Sent.Add(inquiry);
+            return Task.CompletedTask;
+        }
     }
 
     [Fact]

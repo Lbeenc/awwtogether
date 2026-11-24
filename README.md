@@ -51,6 +51,10 @@ Keep each file well under 100 MB, which is GitHub's per-file limit. Videos don't
 
 ## Reading contact-form inquiries
 
+**Every inquiry is emailed to awwtogether@gmail.com.** It's sent through that same Gmail account, and **Reply-To** is set to the visitor, so hitting Reply in Gmail answers them directly. The inquiry is always saved before the email goes out, so a mail problem never loses one.
+
+The settings are in `appsettings.json` under `Email`: the sender, the recipient, and Gmail's SMTP server. The one secret is a **Gmail App Password** for awwtogether@gmail.com, which you create at <https://myaccount.google.com/apppasswords>; it needs 2-Step Verification turned on. It's stored in Secret Manager as `aww-gmail-app-password` and passed to Cloud Run as the `Email__Password` environment variable. Until it's set, inquiries are still saved but no email is sent, and the logs show a warning. To change where emails go, edit `Email:To`.
+
 Where inquiries are saved depends on the `Storage:Provider` setting:
 
 - **Locally (the default):** a SQLite file at `server/AwwTogether.Api/App_Data/awwtogether.db`. You don't need any cloud account.

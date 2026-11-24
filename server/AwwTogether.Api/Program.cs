@@ -38,6 +38,10 @@ else
     builder.Services.AddScoped<IInquiryStore, SqliteInquiryStore>();
 }
 
+// Email each new inquiry to the duo (Gmail SMTP; password from the Email__Password secret).
+builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection("Email"));
+builder.Services.AddSingleton<IInquiryNotifier, SmtpInquiryNotifier>();
+
 // Stop the contact form from being spammed: 5 submissions per IP per 10 minutes.
 builder.Services.AddRateLimiter(o =>
 {
@@ -116,7 +120,7 @@ var api = app.MapGroup("/api");
 api.MapGet("/content", (ContentStore store) => store.Current)
     .WithName("GetContent");
 
-api.MapPost("/inquiries", async (InquiryRequest req, IInquiryStore store, ILogger<Program> log) =>
+api.MapPost("/inquiries", async (InquiryRequest req, IInquiryStore store, IInquiryNotifier notifier, ILogger<Program> log) =>
 {
     // Honeypot filled in → almost certainly a bot. Pretend it worked so it moves on.
     if (!string.IsNullOrWhiteSpace(req.Website))
@@ -133,6 +137,18 @@ api.MapPost("/inquiries", async (InquiryRequest req, IInquiryStore store, ILogge
     };
     var id = await store.AddAsync(inquiry);
     log.LogInformation("New inquiry {Id} from {Brand}", id, inquiry.Brand ?? "(no brand)");
+
+    // Saved first, so a mail problem never loses an inquiry. Sent before responding because
+    // Cloud Run pauses the CPU once the response is out.
+    try
+    {
+        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(20));
+        await notifier.NotifyAsync(inquiry, timeout.Token);
+    }
+    catch (Exception ex)
+    {
+        log.LogError(ex, "Inquiry {Id} saved, but the notification email failed", id);
+    }
     return Results.Accepted();
 })
 .RequireRateLimiting("inquiries")
