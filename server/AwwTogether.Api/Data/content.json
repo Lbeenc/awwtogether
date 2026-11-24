@@ -30,9 +30,9 @@
     { "title": "Day-in-the-life and routine content", "description": "Your product woven into a working mom or military family routine" }
   ],
   "photos": [
-    { "title": "Unstopables Fresh", "brand": "Downy", "description": , "mediaUrl": "/images/downy-unstopables.jpg", "link": null },
-    { "title": "Dental Probiotic", "brand": "SuperTeeth", "description": , "mediaUrl": "/images/superteeth.jpg", "link": null },
-    { "title": "The cheese pull", "brand": "Dave's Hot Chicken", "description": , "mediaUrl": "/images/daves-hot-chicken.jpg", "link": null }
+    { "title": "Unstopables Fresh", "brand": "Downy" , "mediaUrl": "/images/downy-unstopables.jpg", "link": null },
+    { "title": "Dental Probiotic", "brand": "SuperTeeth" , "mediaUrl": "/images/superteeth.jpg", "link": null },
+    { "title": "The cheese pull", "brand": "Dave's Hot Chicken" , "mediaUrl": "/images/daves-hot-chicken.jpg", "link": null }
   ],
   "videos": [
     { "title": "Cantina", "brand": "Cantina", "description": "Testimonial", "mediaUrl": "/videos/cantina.mp4", "posterUrl": "/videos/cantina.jpg", "link": null },
