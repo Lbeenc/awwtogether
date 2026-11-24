@@ -35,10 +35,10 @@
     { "title": "The cheese pull", "brand": "Dave's Hot Chicken", "description": "[One line on the brief and the result]", "mediaUrl": "/images/daves-hot-chicken.jpg", "link": null }
   ],
   "videos": [
-    { "title": "Cantina", "brand": "Cantina", "description": "[Hook / format]", "mediaUrl": "/videos/cantina.mp4", "posterUrl": "/videos/cantina.jpg", "link": null },
-    { "title": "Cookie Night", "brand": "Cookie Night", "description": "[Hook / format]", "mediaUrl": "/videos/cookie-night.mp4", "posterUrl": "/videos/cookie-night.jpg", "link": null },
-    { "title": "Dave's Hot Chicken", "brand": "Dave's Hot Chicken", "description": "[Hook / format]", "mediaUrl": "/videos/daves-hot-chicken.mp4", "posterUrl": "/videos/daves-hot-chicken.jpg", "link": null },
-    { "title": "SuperTeeth", "brand": "SuperTeeth", "description": "[Hook / format]", "mediaUrl": "/videos/superteeth.mp4", "posterUrl": "/videos/superteeth.jpg", "link": null }
+    { "title": "Cantina", "brand": "Cantina", "description": "Testimonial", "mediaUrl": "/videos/cantina.mp4", "posterUrl": "/videos/cantina.jpg", "link": null },
+    { "title": "DoorDash", "brand": "Cookie Night", "description": "Lifestyle", "mediaUrl": "/videos/cookie-night.mp4", "posterUrl": "/videos/cookie-night.jpg", "link": null },
+    { "title": "Dave's Hot Chicken", "brand": "Dave's Hot Chicken", "description": "Food and Beverage", "mediaUrl": "/videos/daves-hot-chicken.mp4", "posterUrl": "/videos/daves-hot-chicken.jpg", "link": null },
+    { "title": "SuperTeeth", "brand": "SuperTeeth", "description": "Health and Wellness", "mediaUrl": "/videos/superteeth.mp4", "posterUrl": "/videos/superteeth.jpg", "link": null }
   ],
   "testimonials": [
     { "quote": "Great work to you both!!! Very nice use of b-roll footage", "name": "NewForm One", "role": null }
