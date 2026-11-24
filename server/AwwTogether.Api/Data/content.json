@@ -48,18 +48,19 @@
       "title": "Product photography",
       "description": "Styled, natural-light photos of your product in real, lived-in settings — ready for your site, ads and socials.",
       "tiers": [
-        { "label": "5 photos", "price": "[$ PRICE]" },
-        { "label": "10 photos", "price": "[$ PRICE]" },
-        { "label": "15 photos", "price": "[$ PRICE]" }
+        { "label": "5 photos", "price": "$75" },
+        { "label": "10 photos", "price": "$125" },
+        { "label": "15 photos", "price": "$175" }
       ]
     },
     {
       "title": "UGC videos · TikTok / Reels",
       "description": "Short-form videos with strong hooks — solo or as a duo — scripted, filmed and edited for paid or organic use.",
       "tiers": [
-        { "label": "1 video", "price": "[$ PRICE]" },
-        { "label": "3 videos", "price": "[$ PRICE]" },
-        { "label": "5 videos", "price": "[$ PRICE]" }
+        { "label": "1 video (15 - 30 seconds)", "price": "$125" },
+        { "label": "1 video (30 - 60 seconds)", "price": "$150" },
+        { "label": "2 videos", "price": "$250" },
+        { "label": "3 videos", "price": "$350" }
       ]
     }
   ],
