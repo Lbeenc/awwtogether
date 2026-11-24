@@ -36,7 +36,7 @@
   ],
   "videos": [
     { "title": "Cantina", "brand": "Cantina", "description": "Testimonial", "mediaUrl": "/videos/cantina.mp4", "posterUrl": "/videos/cantina.jpg", "link": null },
-    { "title": "DoorDash", "brand": "Cookie Night", "description": "Lifestyle", "mediaUrl": "/videos/cookie-night.mp4", "posterUrl": "/videos/cookie-night.jpg", "link": null },
+    { "title": "DoorDash", "brand": "DoorDash", "description": "Lifestyle", "mediaUrl": "/videos/cookie-night.mp4", "posterUrl": "/videos/cookie-night.jpg", "link": null },
     { "title": "Dave's Hot Chicken", "brand": "Dave's Hot Chicken", "description": "Food and Beverage", "mediaUrl": "/videos/daves-hot-chicken.mp4", "posterUrl": "/videos/daves-hot-chicken.jpg", "link": null },
     { "title": "SuperTeeth", "brand": "SuperTeeth", "description": "Health and Wellness", "mediaUrl": "/videos/superteeth.mp4", "posterUrl": "/videos/superteeth.jpg", "link": null }
   ],
